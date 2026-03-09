@@ -1,3 +1,5 @@
+import service.Messenger;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 void main() {
@@ -25,5 +27,14 @@ void main() {
         };
     }.run();
 
+    // use of functional interface and lambda expression
+    Messenger messenger= (message) -> {
+
+        IO.println("Welcome to the lambda expression baby ! " + message);
+
+    };
+
+
+    messenger.sendMessage("This is a message sent using the Messenger functional interface.");
 
 }
