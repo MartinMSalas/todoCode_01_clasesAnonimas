@@ -1,4 +1,5 @@
 import service.Messenger;
+import service.Operator;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -37,4 +38,20 @@ void main() {
 
     messenger.sendMessage("This is a message sent using the Messenger functional interface.");
 
+    // Anonymous inner class implementing the Operator interface
+    Operator additive = new Operator() {
+        @Override
+        public int operate(int a, int b) {
+            return a + b;
+        }
+    };
+
+    int result = additive.operate(5, 3);
+    IO.println("The result of the addition is: " + result);
+
+    // with lambda expression
+    Operator lambdaAdditive = (a, b) -> a + b;
+
+    int lambdaResult = lambdaAdditive.operate(50, 13);
+    IO.println("The result of the addition is: " + lambdaResult);
 }
