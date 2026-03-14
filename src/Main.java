@@ -78,10 +78,26 @@ void main() {
     List<Animal> animals = new ArrayList<>();
     animals.add(new Cat());
     animals.add(new Dog("Rex", 3, "brown", "Labrador"));
+    animals.add(new Dog("Atila", 3, "brown", "Labrador"));
+    animals.add(new Dog("Cleopatra", 3, "brown", "Labrador"));
     animals.add(new Dog("Bella", 2, "black", "Poodle"));
     animals.add(new Cat());
 
     animals.forEach(Animal::makeSound);
+
+    List<String> animalNames = new ArrayList<>();
+    animals.forEach(animal -> {
+        if (animal instanceof Dog) {
+            animalNames.add(((Dog) animal).getName());
+        } else if (animal instanceof Cat) {
+            animalNames.add("Cat");
+        }
+    });
+
+    animalNames.forEach(System.out::println);
+    animalNames.stream().forEach(System.out::println);
+
+
 
 
 }
