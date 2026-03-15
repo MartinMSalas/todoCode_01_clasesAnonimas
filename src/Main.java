@@ -94,8 +94,18 @@ void main() {
         }
     });
 
-    animalNames.forEach(System.out::println);
+    // animalNames.forEach(System.out::println);
     animalNames.stream().forEach(System.out::println);
+
+    List<String> country = Arrays.asList("Argentina", "Brazil", "Chile", "Colombia", "Ecuador", "Peru",
+            "Uruguay", "Venezuela");
+
+    country.stream()
+            .filter(paises -> paises.toLowerCase().contains("a"))
+            .forEach(System.out::println);
+
+
+
 
 
 
