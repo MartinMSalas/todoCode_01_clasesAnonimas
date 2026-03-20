@@ -1,12 +1,10 @@
 import entity.Car;
+import entity.Client;
 import service.Messenger;
 import service.Operator;
 import service.QuadFunction;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -140,8 +138,46 @@ public class Main {// click the <icon src="AllIcons.Actions.Execute"/> icon in t
         IO.println("Cars sorted by price from highest to lowest");
         cars.stream().sorted(Comparator.comparingDouble(Car::getPrice).reversed()).forEach(System.out::println);
 
+
+        Optional<String> stringNull = Optional.ofNullable(null);
+        Optional<String> stringNull2 = Optional.empty();
+
+
+        List<Optional<String>> stringList = Arrays.asList(stringNull, stringNull2);
+        stringList.stream().forEach(str -> {
+
+                str.ifPresentOrElse(
+                        value -> IO.println("Value is present: " + value),
+                        () -> IO.println("Value is null")
+                );
+
+        });
+
+        List<Client> clients = createClients();
+
+        //search for a specific client
+
+        clients.stream().forEach(client -> {
+
+                    if (client.getAddress() == null) {
+                        client.setAddress("Not address");
+                    }
+                    ;
+                    IO.println(client);
+                }
+            );
+
+
+
+
+
+
+
     }
 
+    private Optional<Client> searchForClientByClientId(List<Client> clients, Integer clientId) {
+        return clients.stream().findAny();
+    };
     public static List<Car> createCars() {
         return List.of(
                 new Car("Volkswagen", "Amarok", 25000),
@@ -157,5 +193,15 @@ public class Main {// click the <icon src="AllIcons.Actions.Execute"/> icon in t
                 new Car("Nissan", "Versa", 25000)
         );
     }
+
+    public static List<Client> createClients() {
+        return List.of(
+                new Client(1,"Pepita","La Pistolera","Desierto"),
+                new Client(2,"Poncio","Pilato",null),
+                new Client(3, "Diogenes", "of Siracusa", "Siracusa")
+        );
+    }
+
+
 
 }
