@@ -157,16 +157,41 @@ public class Main {// click the <icon src="AllIcons.Actions.Execute"/> icon in t
 
         //search for a specific client
 
-        clients.stream().forEach(client -> {
+        IO.println("Clients created: ");
 
+        clients.stream().forEach(client -> {
                     if (client.getAddress() == null) {
                         client.setAddress("Not address");
-                    }
-                    ;
+                    };
                     IO.println(client);
                 }
             );
 
+        int clientId = 2;
+        IO.println("Find client with id: " + clientId );
+
+        Optional<Client> foundClient = searchForClientByClientId(clients,clientId);
+
+        foundClient.ifPresentOrElse(
+                (value)
+                        -> {
+                            System.out.println("Client with id: " +clientId + " exists: ");
+                            IO.println(value);
+                    },
+                ()
+                        -> { System.out.println("Client not found"); });
+
+
+        List<Client> clients2 = createClients();
+        Optional<Client> foundClient2 = searchForClientByClientId(clients2,clientId);
+        foundClient2.ifPresentOrElse(
+                (client) -> {
+                    IO.println("Client with id: " +clientId + " exists: ");
+                    IO.println(createSanitizedClient(client));
+                },
+                () -> {
+                    IO.println("Client with id: " +clientId + " not found");
+                });
 
 
 
@@ -175,8 +200,16 @@ public class Main {// click the <icon src="AllIcons.Actions.Execute"/> icon in t
 
     }
 
+    private Client createSanitizedClient(Client client) {
+        Client newClient = client;
+        newClient.setAddress(
+                Optional.ofNullable(client.getAddress())
+                        .orElse("Not address")
+        );
+        return newClient;
+    };
     private Optional<Client> searchForClientByClientId(List<Client> clients, Integer clientId) {
-        return clients.stream().findAny();
+        return clients.stream().filter(client -> Objects.equals(client.getClientId(), clientId)).findFirst();
     };
     public static List<Car> createCars() {
         return List.of(
