@@ -6,6 +6,7 @@ import service.QuadFunction;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 public class Main {// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -194,9 +195,56 @@ public class Main {// click the <icon src="AllIcons.Actions.Execute"/> icon in t
                 });
 
 
+        IO.println("Clients list: " );
+        clients.stream().forEach(IO::println);
 
 
+        IO.println("Clients sorted: ");
 
+        clients.stream().sorted(Comparator.comparing(Client::getLastName).reversed()) .forEach(System.out::println);
+
+        clients.stream().forEach(IO::println);
+        // toList of filtered Cars
+        List<Car> filteredCars = cars.stream().filter(car -> car.getPrice() <=25000)
+                .sorted(Comparator.comparing(Car::getPrice).reversed()).toList();
+
+        filteredCars.stream().forEach(System.out::println);
+
+
+        List<String> duplicateCountries = Arrays.asList("Argentina", "Brazil", "Chile", "Colombia", "Ecuador", "Peru",
+                "Uruguay", "Venezuela","Argentina", "Brazil", "Chile", "Colombia", "Ecuador", "Peru",
+                "Uruguay", "Venezuela","Argentina", "Brazil", "Chile", "Colombia", "Ecuador", "Peru",
+                "Uruguay", "Venezuela","Argentina", "Brazil", "Chile", "Colombia", "Ecuador", "Peru",
+                "Uruguay", "Venezuela","Argentina", "Brazil", "Chile", "Colombia", "Ecuador", "Peru",
+                "Uruguay", "Venezuela","Argentina", "Brazil", "Chile", "Colombia", "Ecuador", "Peru",
+                "Uruguay", "Venezuela","Argentina", "Brazil", "Chile", "Colombia", "Ecuador", "Peru",
+                "Uruguay", "Venezuela","Argentina", "Brazil", "Chile", "Colombia", "Ecuador", "Peru",
+                "Uruguay", "Venezuela","Argentina", "Brazil", "Chile", "Colombia", "Ecuador", "Peru",
+                "Uruguay", "Venezuela","Argentina", "Brazil", "Chile", "Colombia", "Ecuador", "Peru",
+                "Uruguay", "Venezuela","Argentina", "Brazil", "Chile", "Colombia", "Ecuador", "Peru",
+                "Uruguay", "Venezuela");
+
+        duplicateCountries.stream().forEach(System.out::println);
+
+        IO.println("--------------------------------");
+        IO.println("Unique countries names");
+        IO.println("--------------------------------");
+        Set<String> uniqueCountries = duplicateCountries.stream().map(String::toUpperCase).collect(Collectors.toSet());
+
+        uniqueCountries.stream().forEach(System.out::println);
+
+        String unitedCountries = uniqueCountries.stream().collect(Collectors.joining(" | "));
+        IO.println("United countries names: " + unitedCountries);
+
+        //long countedCountries = uniqueCountries.stream().filter(innerCountry -> innerCountry.contains("L")).count();
+        long countedCountries = uniqueCountries.stream().filter(innerCountry -> innerCountry.contains("L")).count();
+        IO.println("United countries names: " + countedCountries);
+
+        // Collectors.partitioningBy()
+
+        List<Integer> ages = List.of(11,11,44,33,22,121,4,12,5,32,32,1,2,3,4,5,6,7,11,2,33,52,61);
+        Map<Boolean, List<Integer>> partitionedAge = ages.stream().collect(Collectors.partitioningBy(age -> age > 18));
+        IO.println("Partitioned Ages: " + partitionedAge);
 
     }
 
